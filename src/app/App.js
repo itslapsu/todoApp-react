@@ -3,7 +3,11 @@ import "./reset.css";
 import "./fonts.css";
 
 function App() {
-  return <RouteScreens />;
+  return (
+    <div className="app" style={{ backgroundColor: "#cec3ef" }}>
+      <RouteScreens />
+    </div>
+  );
 }
 
 export default App;
