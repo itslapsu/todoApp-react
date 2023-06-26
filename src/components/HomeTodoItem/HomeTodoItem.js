@@ -7,11 +7,13 @@ import { ReactComponent as DeleteIcon } from "../../assets/svg/delete.svg";
 export default function HomeTodoItem({ todo, todos, setTodos }) {
   const checkBoxRef = React.useRef();
   const blockRef = React.useRef();
+  const favoriteRef = React.useRef();
 
   const checkBoxClassName = todo.isDone ? styles.checkBoxActive : {};
 
   const toggleTodo = (e) => {
     e.preventDefault();
+
     const updatedTodos = todos.map((t) => {
       if (t.id === todo.id) {
         return { ...t, isDone: !t.isDone };
@@ -19,7 +21,11 @@ export default function HomeTodoItem({ todo, todos, setTodos }) {
       return t;
     });
 
-    setTodos(updatedTodos);
+    checkBoxRef.current.classList.toggle(styles.checkBoxActive);
+
+    setTimeout(() => {
+      setTodos(updatedTodos);
+    }, 600);
   };
 
   const toggleFavorite = (e) => {
@@ -31,12 +37,16 @@ export default function HomeTodoItem({ todo, todos, setTodos }) {
       return t;
     });
 
-    setTodos(updatedTodos);
+    favoriteRef.current.classList.toggle(styles.favoriteActive);
+
+    setTimeout(() => {
+      setTodos(updatedTodos);
+    }, 600);
   };
 
   const deleteTodo = (e) => {
     e.preventDefault();
-    blockRef.current.className = `${styles.block} ${styles.delete}`;
+    blockRef.current.classList.add(styles.delete);
 
     return setTimeout(() => {
       const updatedTodos = todos.filter((t) => t.id !== todo.id);
@@ -58,6 +68,7 @@ export default function HomeTodoItem({ todo, todos, setTodos }) {
       </div>
       <div className={styles.buttons}>
         <FavoriteIcon
+          ref={favoriteRef}
           className={`${styles.favorite} ${
             todo.inFavorite ? styles.favoriteActive : ""
           }`}
