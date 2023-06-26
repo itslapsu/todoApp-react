@@ -8,6 +8,7 @@ import React from "react";
 
 import Home from "./Home/Home";
 import HomeTodo from "../components/HomeTodo/HomeTodo";
+import PageNotFound from "./PageNotFound/PageNotFound";
 
 export default function RouteScreens() {
   const data = JSON.parse(localStorage.getItem("todos")) || [];
@@ -51,8 +52,8 @@ export default function RouteScreens() {
                 <HomeTodo todos={todos} setTodos={setTodos} completed={3} />
               }
             />
-            <Route exact path="*" element={<div>Page not found</div>} />
           </Route>
+          <Route exact path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
       <Outlet />
