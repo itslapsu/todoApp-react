@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./HomeForm.module.css";
 import { useNavigate } from "react-router-dom";
 
+import { ReactComponent as AddIcon } from "../../assets/svg/add.svg";
+
 export default function HomeForm({ todos, setTodos }) {
   const inputRef = React.useRef();
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ export default function HomeForm({ todos, setTodos }) {
           ref={inputRef}
         />
         <button onClick={addTodo} className={styles.button}>
-          Add
+          <AddIcon />
         </button>
       </form>
     </div>

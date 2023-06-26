@@ -1,11 +1,12 @@
 .block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   width: 100%;
   height: 36px;
   background: #2c3849;
   border-radius: 3px;
   margin-top: 16px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -27,6 +28,21 @@
   transition: 0.3s all;
   font-weight: 700;
   height: 100%;
+}
+.link.image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.link.image .svgIcon {
+  width: 24px;
+  height: 24px;
 }
 .link.active {
   border-bottom: 2px solid #fff;

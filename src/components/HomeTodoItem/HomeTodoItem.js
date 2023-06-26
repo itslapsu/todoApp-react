@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "./HomeTodoItem.module.css";
 
+import { ReactComponent as FavoriteIcon } from "../../assets/svg/favorite.svg";
+import { ReactComponent as DeleteIcon } from "../../assets/svg/delete.svg";
+
 export default function HomeTodoItem({ todo, todos, setTodos }) {
   const checkBoxRef = React.useRef();
   const blockRef = React.useRef();
@@ -12,6 +15,18 @@ export default function HomeTodoItem({ todo, todos, setTodos }) {
     const updatedTodos = todos.map((t) => {
       if (t.id === todo.id) {
         return { ...t, isDone: !t.isDone };
+      }
+      return t;
+    });
+
+    setTodos(updatedTodos);
+  };
+
+  const toggleFavorite = (e) => {
+    e.preventDefault();
+    const updatedTodos = todos.map((t) => {
+      if (t.id === todo.id) {
+        return { ...t, inFavorite: !t.inFavorite };
       }
       return t;
     });
@@ -42,8 +57,14 @@ export default function HomeTodoItem({ todo, todos, setTodos }) {
         </div>
       </div>
       <div className={styles.buttons}>
+        <FavoriteIcon
+          className={`${styles.favorite} ${
+            todo.inFavorite ? styles.favoriteActive : ""
+          }`}
+          onClick={toggleFavorite}
+        />
         <a className={styles.buttonDel} onClick={deleteTodo} href="/">
-          Delete
+          <DeleteIcon className={styles.deleteIcon} />
         </a>
       </div>
     </div>

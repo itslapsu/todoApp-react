@@ -15,11 +15,13 @@ export default function RouteScreens() {
       id: 2,
       title: "Second task",
       isDone: true,
+      inFavorite: false,
     },
     {
       id: 1,
       title: "First task",
       isDone: false,
+      inFavorite: true,
     },
   ];
 
@@ -53,6 +55,13 @@ export default function RouteScreens() {
               path="uncompleted"
               element={
                 <HomeTodo todos={todos} setTodos={setTodos} completed={2} />
+              }
+            />
+            <Route
+              exact
+              path="favorite"
+              element={
+                <HomeTodo todos={todos} setTodos={setTodos} completed={3} />
               }
             />
             <Route exact path="*" element={<div>Page not found</div>} />

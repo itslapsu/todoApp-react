@@ -11,6 +11,8 @@ export default function HomeTodo({ todos, setTodos, completed }) {
           return "";
         } else if (completed === 2 && todo.isDone) {
           return "";
+        } else if (completed === 3 && !todo.inFavorite) {
+          return "";
         }
 
         return (
