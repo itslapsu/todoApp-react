@@ -8,11 +8,15 @@ export default function HomeTodoItem({ todo, todos, setTodos }) {
   const checkBoxRef = React.useRef();
   const blockRef = React.useRef();
   const favoriteRef = React.useRef();
+  let antiFlood = false;
 
   const checkBoxClassName = todo.isDone ? styles.checkBoxActive : {};
 
   const toggleTodo = (e) => {
     e.preventDefault();
+
+    if (antiFlood) return;
+    antiFlood = true;
 
     const updatedTodos = todos.map((t) => {
       if (t.id === todo.id) {
@@ -25,11 +29,16 @@ export default function HomeTodoItem({ todo, todos, setTodos }) {
 
     setTimeout(() => {
       setTodos(updatedTodos);
+      antiFlood = false;
     }, 600);
   };
 
   const toggleFavorite = (e) => {
     e.preventDefault();
+
+    if (antiFlood) return;
+    antiFlood = true;
+
     const updatedTodos = todos.map((t) => {
       if (t.id === todo.id) {
         return { ...t, inFavorite: !t.inFavorite };
@@ -41,6 +50,7 @@ export default function HomeTodoItem({ todo, todos, setTodos }) {
 
     setTimeout(() => {
       setTodos(updatedTodos);
+      antiFlood = false;
     }, 600);
   };
 
