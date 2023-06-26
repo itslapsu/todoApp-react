@@ -1,0 +1,92 @@
+.block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 16px;
+  background: #2c3849;
+  color: #cec3ef;
+  padding: 8px;
+  border-radius: 3px;
+  -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+  cursor: pointer;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+.block.delete {
+  -webkit-transform: translateX(150%);
+          transform: translateX(150%);
+}
+
+.content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 18px;
+  word-break: break-all;
+}
+
+.buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.buttonDel {
+  background: #cec3ef;
+  color: #2c3849;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 3px;
+}
+
+.checkBox {
+  width: 20px;
+  height: 20px;
+  background: #2c3849;
+  border: 2px solid #cec3ef;
+  border-radius: 3px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 16px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+.checkBox::after {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  right: -110%;
+  top: -110%;
+  background: url("../../assets/svg/check.svg");
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+.checkBox.checkBoxActive {
+  border: 2px solid #2c3849;
+}
+.checkBox.checkBoxActive::after {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+}
