@@ -48,6 +48,13 @@ export default function RouteScreens() {
                 <HomeTodo todos={todos} setTodos={setTodos} completed={1} />
               }
             />
+            <Route
+              exact
+              path="uncompleted"
+              element={
+                <HomeTodo todos={todos} setTodos={setTodos} completed={2} />
+              }
+            />
             <Route exact path="*" element={<div>Page not found</div>} />
           </Route>
         </Routes>

@@ -7,7 +7,9 @@ export default function HomeTodo({ todos, setTodos, completed }) {
   return (
     <div className={styles.block}>
       {todos.map((todo) => {
-        if (completed && !todo.isDone) {
+        if (completed === 1 && !todo.isDone) {
+          return "";
+        } else if (completed === 2 && todo.isDone) {
           return "";
         }
 

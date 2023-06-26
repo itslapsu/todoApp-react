@@ -19,6 +19,15 @@ export default function HomeNavigate() {
         style={({ isActive }) =>
           isActive ? { borderBottom: "2px solid #fefefe" } : {}
         }
+        to={"/uncompleted"}
+      >
+        Uncompleted
+      </NavLink>
+      <NavLink
+        className={`${styles.link}`}
+        style={({ isActive }) =>
+          isActive ? { borderBottom: "2px solid #fefefe" } : {}
+        }
         to={"/completed"}
       >
         Completed
