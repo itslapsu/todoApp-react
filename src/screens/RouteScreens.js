@@ -10,22 +10,9 @@ import Home from "./Home/Home";
 import HomeTodo from "../components/HomeTodo/HomeTodo";
 
 export default function RouteScreens() {
-  const backEndData = [
-    {
-      id: 2,
-      title: "Second task",
-      isDone: true,
-      inFavorite: false,
-    },
-    {
-      id: 1,
-      title: "First task",
-      isDone: false,
-      inFavorite: true,
-    },
-  ];
+  const data = JSON.parse(localStorage.getItem("todos")) || [];
 
-  const [todos, setTodos] = React.useState(backEndData);
+  const [todos, setTodos] = React.useState(data);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Home.module.css";
 import HomeTitle from "../../components/HomeTitle/HomeTitle";
 import HomeSubtitle from "../../components/HomeSubtitle/HomeSubtitle";
@@ -23,6 +23,10 @@ export default function Home({ todos, setTodos }) {
 
     setUnDoneTasks(result);
   };
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   React.useLayoutEffect(updateUnDoneTasks);
 

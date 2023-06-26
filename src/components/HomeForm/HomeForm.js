@@ -17,6 +17,7 @@ export default function HomeForm({ todos, setTodos }) {
       id: Date.now(),
       title: inputRef.current.value,
       isDone: false,
+      inFavorite: false,
     };
 
     setTodos([newTodo, ...todos]);
