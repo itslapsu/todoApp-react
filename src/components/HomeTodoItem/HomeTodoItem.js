@@ -3,64 +3,71 @@ import styles from "./HomeTodoItem.module.css";
 
 import { ReactComponent as FavoriteIcon } from "../../assets/svg/favorite.svg";
 import { ReactComponent as DeleteIcon } from "../../assets/svg/delete.svg";
+import {
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { myCollectionRef } from "../../Auth";
 
 export default function HomeTodoItem({ todo, todos, setTodos }) {
   const checkBoxRef = React.useRef();
   const blockRef = React.useRef();
   const favoriteRef = React.useRef();
+
   let antiFlood = false;
 
   const checkBoxClassName = todo.isDone ? styles.checkBoxActive : {};
+  const filteredQuery = query(myCollectionRef, where("id", "==", todo.id));
 
-  const toggleTodo = (e) => {
+  const toggleTodo = async (e) => {
     e.preventDefault();
 
     if (antiFlood) return;
     antiFlood = true;
-
-    const updatedTodos = todos.map((t) => {
-      if (t.id === todo.id) {
-        return { ...t, isDone: !t.isDone };
-      }
-      return t;
-    });
 
     checkBoxRef.current.classList.toggle(styles.checkBoxActive);
 
-    setTimeout(() => {
-      setTodos(updatedTodos);
+    const querySnapshot = await getDocs(filteredQuery);
+
+    return setTimeout(() => {
+      querySnapshot.forEach((doc) => {
+        updateDoc(doc.ref, { isDone: !todo.isDone });
+      });
       antiFlood = false;
-    }, 600);
+    }, 300);
   };
 
-  const toggleFavorite = (e) => {
+  const toggleFavorite = async (e) => {
     e.preventDefault();
 
     if (antiFlood) return;
     antiFlood = true;
 
-    const updatedTodos = todos.map((t) => {
-      if (t.id === todo.id) {
-        return { ...t, inFavorite: !t.inFavorite };
-      }
-      return t;
-    });
-
     favoriteRef.current.classList.toggle(styles.favoriteActive);
 
-    setTimeout(() => {
-      setTodos(updatedTodos);
+    const querySnapshot = await getDocs(filteredQuery);
+
+    return setTimeout(() => {
+      querySnapshot.forEach((doc) => {
+        updateDoc(doc.ref, { inFavorite: !todo.inFavorite });
+      });
       antiFlood = false;
-    }, 600);
+    }, 300);
   };
 
-  const deleteTodo = (e) => {
+  const deleteTodo = async (e) => {
     e.preventDefault();
     blockRef.current.classList.add(styles.delete);
 
+    const querySnapshot = await getDocs(filteredQuery);
+
     return setTimeout(() => {
-      const updatedTodos = todos.filter((t) => t.id !== todo.id);
-      setTodos(updatedTodos);
+      querySnapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
     }, 300);
   };
 

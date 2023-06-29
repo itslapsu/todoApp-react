@@ -1,9 +1,81 @@
 .block {
   margin-top: 48px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .title {
   font-size: 32px;
   text-decoration: none;
   font-weight: 700;
+}
+
+.blockAuth {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  height: 34px;
+  width: 118px;
+  background: #2c3849;
+  border-radius: 3px;
+  padding: 0 5px;
+}
+
+.googleIcon {
+  width: 24px;
+  height: 24px;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.authText {
+  font-size: 16px;
+  font-weight: 500;
+  color: #cec3ef;
+  text-transform: uppercase;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.logoutIcon {
+  width: 30px;
+  height: 30px;
+  margin-left: 12px;
+}
+
+.userAvatar {
+  border-radius: 3px;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+@media screen and (max-width: 480px) {
+  .block {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    text-align: center;
+  }
+  .blockAuth {
+    margin: 0 auto 10px auto;
+  }
 }

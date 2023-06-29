@@ -11,47 +11,23 @@ import HomeTodo from "../components/HomeTodo/HomeTodo";
 import PageNotFound from "./PageNotFound/PageNotFound";
 
 export default function RouteScreens() {
-  const data = JSON.parse(localStorage.getItem("todos")) || [];
-
-  const [todos, setTodos] = React.useState(data);
-
   return (
     <>
       <Router>
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={<Home todos={todos} setTodos={setTodos} />}
-          >
-            <Route
-              exact
-              path=""
-              element={
-                <HomeTodo todos={todos} setTodos={setTodos} completed={0} />
-              }
-            />
+          <Route exact path="/" element={<Home />}>
+            <Route exact path="" element={<HomeTodo completed={0} />} />
             <Route
               exact
               path="completed"
-              element={
-                <HomeTodo todos={todos} setTodos={setTodos} completed={1} />
-              }
+              element={<HomeTodo completed={1} />}
             />
             <Route
               exact
               path="uncompleted"
-              element={
-                <HomeTodo todos={todos} setTodos={setTodos} completed={2} />
-              }
+              element={<HomeTodo completed={2} />}
             />
-            <Route
-              exact
-              path="favorite"
-              element={
-                <HomeTodo todos={todos} setTodos={setTodos} completed={3} />
-              }
-            />
+            <Route exact path="favorite" element={<HomeTodo completed={3} />} />
           </Route>
           <Route exact path="*" element={<PageNotFound />} />
         </Routes>

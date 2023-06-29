@@ -1,11 +1,50 @@
 import styles from "./HomeTodo.module.css";
-
+import { useMemo, createContext, useRef } from "react";
 import HomeTodoItem from "../HomeTodoItem/HomeTodoItem";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { auth, myCollectionRef } from "../../Auth";
+import { query, where } from "firebase/firestore";
+import Loader from "../Loader/Loader";
 
-export default function HomeTodo({ todos, setTodos, completed }) {
+export const NoDisplayRefContext = createContext();
+
+export default function HomeTodo({ completed }) {
   let hasItemsToShow = false;
 
-  const renderedItems = todos.map((todo) => {
+  const [user] = useAuthState(auth);
+
+  const noDisplayRef = useRef();
+
+  const filteredQuery = useMemo(
+    () => query(myCollectionRef, where("user", "==", user?.uid || "")),
+    [user?.uid]
+  );
+  const [snapshot, loading] = useCollection(filteredQuery);
+
+  if (!user) {
+    return (
+      <NoDisplayRefContext.Provider noDisplayRef={noDisplayRef}>
+        <div ref={noDisplayRef} className={styles.block}>
+          <p className={styles.textNoDisplay}>
+            You don't have tasks, log in to create one. 🙄
+          </p>
+        </div>
+      </NoDisplayRefContext.Provider>
+    );
+  }
+
+  let data = [];
+  snapshot && snapshot.docs.map((doc) => data.push(doc.data()));
+
+  if (loading)
+    return (
+      <div className={styles.block}>
+        <Loader />
+      </div>
+    );
+
+  const renderedItems = data.map((todo) => {
     if (completed === 1 && !todo.isDone) {
       return null;
     } else if (completed === 2 && todo.isDone) {
@@ -16,21 +55,14 @@ export default function HomeTodo({ todos, setTodos, completed }) {
 
     hasItemsToShow = true;
 
-    return (
-      <HomeTodoItem
-        key={todo.id}
-        todo={todo}
-        todos={todos}
-        setTodos={setTodos}
-      />
-    );
+    return <HomeTodoItem key={todo.id} todo={todo} todos={data} />;
   });
 
   const showTodos = hasItemsToShow ? (
     renderedItems
   ) : (
     <div className={styles.blockNoDisplay}>
-      {todos.length === 0 ? (
+      {data.length === 0 ? (
         <p className={styles.textNoDisplay}>
           You don't have tasks, but you can create them. 😊
         </p>
