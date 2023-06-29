@@ -21,6 +21,7 @@ export default function HomeTodo({ completed }) {
     [user?.uid]
   );
   const [snapshot, loading] = useCollection(filteredQuery);
+  console.log(snapshot);
 
   if (!user) {
     return (
@@ -36,6 +37,7 @@ export default function HomeTodo({ completed }) {
 
   let data = [];
   snapshot && snapshot.docs.map((doc) => data.push(doc.data()));
+  data.sort((a, b) => b.id - a.id);
 
   if (loading)
     return (

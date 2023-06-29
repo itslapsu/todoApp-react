@@ -3,6 +3,8 @@
   height: 50vh;
   width: 100%;
   position: relative;
+  -webkit-transition: 1s all;
+  transition: 1s all;
 }
 
 .blockNoDisplay {
